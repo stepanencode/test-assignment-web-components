@@ -6,6 +6,8 @@ import { createComponent } from '@lit/react';
 import { ElementsList } from './ElementsList'; // Импортируем ElementsList
 // import ElementItem from '../types/elements.type';
 import React from 'react';
+
+// import { elementsArray } from '../lib/data';
 // import { ElementItem } from './ElementItem';
 
 @customElement('modal-component')
@@ -15,8 +17,8 @@ class ModalComponent extends LitElement {
   //   @property({ type: Function }) onCancel!: () => void;
 
   @property({ type: Array }) elements: ElementItem[] = ElementsList;
-  @property({ type: Function }) onSave!: () => void;
-  @property({ type: Function }) onCancel!: () => void;
+  //   @property({ type: Function }) onSave!: () => void;
+  //   @property({ type: Function }) onCancel!: () => void;
 
   static styles = css`
     /* Добавим стили для модального окна */
@@ -36,37 +38,46 @@ class ModalComponent extends LitElement {
     }
   `;
 
-  //   private handleSave() {
-  //     this.onSave(this.selectedItems);
-  //   }
-
   render() {
     return html`
-      <div class="overlay" @click=${this.onCancel}></div>
       <div class="modal">
-        <h2>Select Items</h2>
-        <elements-list
-          .elements=${this.elements}
-          @toggle-item=${this.toggleItem}
-        ></elements-list>
-        <div>
-          <button @click=${this.onSave}>Save</button>
-          <button @click=${this.onCancel}>Cancel</button>
-        </div>
+        <h2>Select items</h2>
+        <elements-list></elements-list>
       </div>
     `;
   }
 
-  toggleItem(event: CustomEvent) {
-    const itemId = event.detail;
-    this.dispatchEvent(
-      new CustomEvent('toggle-item', {
-        detail: itemId,
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
+  //   private handleSave() {
+  //     this.onSave(this.selectedItems);
+  //   }
+
+  //   render() {
+  //     return html`
+  //       <div class="overlay" @click=${this.onCancel}></div>
+  //       <div class="modal">
+  //         <h2>Select Items</h2>
+  //         <elements-list
+  //           .elements=${this.elements}
+  //           @toggle-item=${this.toggleItem}
+  //         ></elements-list>
+  //         <div>
+  //         //   <button @click=${this.onSave}>Save</button>
+  //         //   <button @click=${this.onCancel}>Cancel</button>
+  //         </div>
+  //       </div>
+  //     `;
+  //   }
+
+  //   toggleItem(event: CustomEvent) {
+  //     const itemId = event.detail;
+  //     this.dispatchEvent(
+  //       new CustomEvent('toggle-item', {
+  //         detail: itemId,
+  //         bubbles: true,
+  //         composed: true,
+  //       })
+  //     );
+  //   }
 
   //   render() {
   //     return html`
@@ -85,6 +96,23 @@ class ModalComponent extends LitElement {
   //       </div>
   //     `;
   //   }
+
+  //   function handleToggleItem(id: number) {
+  //     setElements((prevElements) =>
+  //       prevElements.map((element) =>
+  //         element.id === id
+  //           ? { ...element, isChecked: !element.isChecked }
+  //           : element
+  //       )
+  //     );
+  //   }
+
+  //   return (
+  //     <div>
+  //       <h1>Element Selector</h1>
+  //       <ElementsList elements={elements} onToggleItem={handleToggleItem} />
+  //     </div>
+  //   );
 }
 
 // Обертка для использования модального окна в React
@@ -92,8 +120,8 @@ export const Modal = createComponent({
   react: React,
   tagName: 'modal-component',
   elementClass: ModalComponent,
-  events: {
-    onSave: 'onSave',
-    onCancel: 'onCancel',
-  },
+  //   events: {
+  //     onSave: 'onSave',
+  //     onCancel: 'onCancel',
+  //   },
 });
