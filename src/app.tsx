@@ -1,34 +1,15 @@
-// import React from 'react';
-// import { createRoot } from 'react-dom/client';
-// import { createComponent } from '@lit/react';
-// import { DemoGreeting as DemoGreetingWC } from './demo-greeting.js';
-
-// // Creates a React component from a Lit component
-// const DemoGreeting = createComponent({
-//   react: React,
-//   tagName: 'demo-greeting',
-//   elementClass: DemoGreetingWC,
-// });
-
-// const root = createRoot(document.getElementById('app')!);
-
-// root.render(<DemoGreeting name="React" />);
-
 import React, { useState } from 'react';
 import { Modal } from './components/Modal';
 import { elementsArray } from './lib/data';
 import ElementItem from './types/element.type';
-import { ElementsList } from './components/ElementsList';
-// import { elementsArray } from './lib/data';
-// import { ButtonGroup } from './components/ButtonGroup';
 
 const App: React.FC = () => {
-  const [selectedItems, setSelectedItems] = useState<number[]>([1]); // Выбранные элементы по умолчанию
+  const [selectedItems, setSelectedItems] = useState<ElementItem[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [elements, setElements] = useState<ElementItem[]>(elementsArray);
 
   const handleSave = (newSelectedItems: ElementItem[]) => {
-    setSelectedItems(newSelectedItems.map((item) => item.id));
+    setSelectedItems(newSelectedItems);
     setIsModalOpen(false);
   };
 
@@ -46,8 +27,8 @@ const App: React.FC = () => {
     <div>
       <div>
         {selectedItems.map((item) => (
-          <span key={item} className="tag">
-            Element {item}{' '}
+          <span key={item.id} className="tag">
+            Element {item.id}{' '}
             <button
               onClick={() =>
                 setSelectedItems((prev) => prev.filter((i) => i !== item))
