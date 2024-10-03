@@ -3,12 +3,14 @@ import { customElement, property, state } from 'lit/decorators.js';
 import './ElementItem';
 import { createComponent } from '@lit/react';
 import React from 'react';
+import { elementsArray } from '../lib/data';
 
 @customElement('elements-list')
 export class ElementsListComponent extends LitElement {
   @property({ type: Array }) selectedItems: number[] = [];
   @state() private filterValue: string = '';
-  @state() private items = Array.from({ length: 100 }, (_, i) => i + 1); // Создаем 100 элементов
+  // @state() private items = Array.from({ length: 100 }, (_, i) => i + 1); // Создаем 100 элементов
+  @state() private items = elementsArray;
 
   static styles = css`
     ul {
@@ -73,7 +75,7 @@ export class ElementsListComponent extends LitElement {
       </select>
 
       <ul>
-        ${filteredItems.map(
+        ${this.items.map(
           (item) => html`
             <li>
               <input
@@ -81,7 +83,7 @@ export class ElementsListComponent extends LitElement {
                 ?checked=${this.selectedItems.includes(item)}
                 @change=${() => this.handleCheckboxToggle(item)}
               />
-              <span>Element ${item}</span>
+              <span>Element ${item.id}</span>
             </li>
           `
         )}

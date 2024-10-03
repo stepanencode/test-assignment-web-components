@@ -6,7 +6,7 @@ import { createComponent } from '@lit/react';
 import { ElementsList } from './ElementsList'; // Импортируем ElementsList
 // import ElementItem from '../types/elements.type';
 import React from 'react';
-import { ElementItem } from './ElementItem';
+// import { ElementItem } from './ElementItem';
 
 @customElement('modal-component')
 class ModalComponent extends LitElement {
