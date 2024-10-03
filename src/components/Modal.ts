@@ -3,12 +3,13 @@ import { customElement, property } from 'lit/decorators.js';
 import { createComponent } from '@lit/react';
 import { ElementsList } from './ElementsList'; // Импортируем ElementsList
 import React from 'react';
+import ElementItem from '../types/element.type';
 
 @customElement('modal-component')
 class ModalComponent extends LitElement {
   @property({ type: Array }) elements: ElementItem[] = ElementsList;
-  @property({ type: Array }) selectedItems: number[] = [];
-  @property({ type: Function }) onSave!: () => void;
+  @property({ type: Array }) selectedItems: ElementItem[] = [];
+  @property({ type: Function }) onSave!: (items: ElementItem[]) => void;
   @property({ type: Function }) onCancel!: () => void;
 
   static styles = css`
@@ -29,6 +30,10 @@ class ModalComponent extends LitElement {
     }
   `;
 
+  private changeSelection(event: CustomEvent) {
+    this.selectedItems = event.detail;
+  }
+
   private handleSave() {
     this.onSave(this.selectedItems);
   }
@@ -42,8 +47,7 @@ class ModalComponent extends LitElement {
           .elements=${this.elements}
           @toggle-item=${this.toggleItem}
           .selectedItems=${this.selectedItems}
-          @changeSelection=${(e: CustomEvent) =>
-            (this.selectedItems = e.detail)}
+          @changeSelection=${this.changeSelection}
         ></elements-list>
         <div class="buttons">
           <button @click=${this.handleSave}>Save</button>
@@ -71,7 +75,7 @@ export const Modal = createComponent({
   tagName: 'modal-component',
   elementClass: ModalComponent,
   events: {
-    onSave: 'onSave',
+    handleSave: 'onSave',
     onCancel: 'onCancel',
   },
 });

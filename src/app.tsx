@@ -27,8 +27,8 @@ const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [elements, setElements] = useState<ElementItem[]>(elementsArray);
 
-  const handleSave = (newSelectedItems: number[]) => {
-    setSelectedItems(newSelectedItems);
+  const handleSave = (newSelectedItems: ElementItem[]) => {
+    setSelectedItems(newSelectedItems.map((item) => item.id));
     setIsModalOpen(false);
   };
 
@@ -63,7 +63,7 @@ const App: React.FC = () => {
         <Modal
           onToggle={handleToggleItem}
           selectedItems={selectedItems}
-          onSave={handleSave}
+          onSave={(items) => handleSave(items)}
           onCancel={() => setIsModalOpen(false)}
           elements={elements}
         />
