@@ -8,11 +8,14 @@ import React from 'react';
 export class ElementsListWC extends LitElement {
   static styles = css`
     ul {
+      overflow-y: auto;
+      height: 200px;
       list-style-type: none;
-      padding: 0;
+      padding: 10px 20px;
+      background-color: black;
     }
     li {
-      margin: 5px 0;
+      margin: 7px 0;
     }
     label {
       cursor: pointer;

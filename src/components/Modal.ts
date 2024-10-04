@@ -13,7 +13,6 @@ class ModalComponent extends LitElement {
   @property({ type: Function }) onCancel!: () => void;
 
   static styles = css`
-    /* Добавим стили для модального окна */
     .modal {
       display: flex;
       flex-direction: column;
@@ -21,12 +20,29 @@ class ModalComponent extends LitElement {
       background-color: #333;
       color: white;
       border-radius: 8px;
-      max-width: 400px;
+      width: 500px;
+      height: 400px;
       margin: 2rem auto;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
     }
     .buttons {
       display: flex;
       justify-content: space-between;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
     }
   `;
 
@@ -54,6 +70,7 @@ class ModalComponent extends LitElement {
           .selectedItems=${this.selectedItems}
           @changeSelection=${this.changeSelection}
         ></elements-list>
+        <div>${this.selectedItems.map((el) => el.name)}</div>
         <div class="buttons">
           <button @click=${this.handleSave}>Save</button>
           <button @click=${this.handleCancel}>Cancel</button>
