@@ -32,7 +32,9 @@ export class ElementsListWC extends LitElement {
               <label>
                 <input
                   type="checkbox"
-                  .checked=${element.isChecked}
+                  .checked=${this.selectedItems.some(
+                    (el) => el.id === element.id
+                  )}
                   @change=${() => this.toggleItem(element.id)}
                 />
                 ${element.name}
@@ -45,11 +47,15 @@ export class ElementsListWC extends LitElement {
   }
 
   private toggleItem(item: number) {
-    const isSelected = this.selectedItems.includes(item);
+    const isSelected = this.selectedItems.find((el) => el.id === item);
     const updatedSelection = isSelected
-      ? this.selectedItems.filter((i) => i !== item)
-      : [...this.selectedItems, item];
+      ? this.selectedItems.filter((i) => i.id !== item)
+      : [
+          ...this.selectedItems,
+          { id: item, name: 'Element ' + item, isChecked: true },
+        ];
     this.selectedItems = updatedSelection;
+    console.log(updatedSelection, 'updatedSelection');
     this.dispatchEvent(
       new CustomEvent('changeSelection', { detail: updatedSelection })
     );

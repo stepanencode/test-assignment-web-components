@@ -13,16 +13,6 @@ const App: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  function handleToggleItem(id: number) {
-    setElements((prevElements) =>
-      prevElements.map((element) =>
-        element.id === id
-          ? { ...element, isChecked: !element.isChecked }
-          : element
-      )
-    );
-  }
-
   return (
     <div>
       <div>
@@ -42,7 +32,6 @@ const App: React.FC = () => {
       <button onClick={() => setIsModalOpen(true)}>Change my choice</button>
       {isModalOpen && (
         <Modal
-          onToggle={handleToggleItem}
           selectedItems={selectedItems}
           onSave={(items) => handleSave(items)}
           onCancel={() => setIsModalOpen(false)}

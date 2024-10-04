@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { createComponent } from '@lit/react';
-import { ElementsList } from './ElementsList'; // Импортируем ElementsList
+import { ElementsList } from './ElementsList';
 import React from 'react';
 import ElementItem from '../types/element.type';
 
@@ -69,7 +69,6 @@ class ModalComponent extends LitElement {
   }
 }
 
-// Обертка для использования модального окна в React
 export const Modal = createComponent({
   react: React,
   tagName: 'modal-component',
@@ -77,6 +76,5 @@ export const Modal = createComponent({
   events: {
     handleSave: 'onSave',
     onCancel: 'onCancel',
-    onToggle: 'toggleItem',
   },
 });
