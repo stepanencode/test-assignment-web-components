@@ -70,6 +70,9 @@ class ModalComponent extends LitElement {
           .selectedItems=${this.selectedItems}
           @changeSelection=${this.changeSelection}
         ></elements-list>
+        <selected-items-array
+          .selectedItems=${this.selectedItems}
+        ></selected-items-array>
         <div>${this.selectedItems.map((el) => el.name)}</div>
         <div class="buttons">
           <button @click=${this.handleSave}>Save</button>
