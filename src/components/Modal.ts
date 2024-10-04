@@ -38,6 +38,11 @@ class ModalComponent extends LitElement {
     this.onSave(this.selectedItems);
   }
 
+  private handleCancel() {
+    this.selectedItems = [];
+    this.onCancel();
+  }
+
   render() {
     return html`
       <div class="overlay" @click=${this.onCancel}></div>
@@ -51,7 +56,7 @@ class ModalComponent extends LitElement {
         ></elements-list>
         <div class="buttons">
           <button @click=${this.handleSave}>Save</button>
-          <button @click=${this.onCancel}>Cancel</button>
+          <button @click=${this.handleCancel}>Cancel</button>
         </div>
       </div>
     `;
@@ -75,6 +80,6 @@ export const Modal = createComponent({
   elementClass: ModalComponent,
   events: {
     handleSave: 'onSave',
-    onCancel: 'onCancel',
+    handleCancel: 'onCancel',
   },
 });

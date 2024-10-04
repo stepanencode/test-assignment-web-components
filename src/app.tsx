@@ -13,6 +13,12 @@ const App: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const handleCancel = () => {
+    setSelectedItems(selectedItems);
+    console.log('selectedItems', selectedItems);
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       <div>
@@ -34,7 +40,7 @@ const App: React.FC = () => {
         <Modal
           selectedItems={selectedItems}
           onSave={(items) => handleSave(items)}
-          onCancel={() => setIsModalOpen(false)}
+          onCancel={() => handleCancel()}
           elements={elements}
         />
       )}
