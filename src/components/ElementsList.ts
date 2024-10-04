@@ -17,6 +17,10 @@ export class ElementsListWC extends LitElement {
     label {
       cursor: pointer;
     }
+    input[type='checkbox']:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   `;
 
   @property({ type: Array }) elements: ElementItem[] = [];
@@ -35,6 +39,9 @@ export class ElementsListWC extends LitElement {
                   .checked=${this.selectedItems.some(
                     (el) => el.id === element.id
                   )}
+                  ?disabled=${!this.selectedItems.some(
+                    (el) => el.id === element.id
+                  ) && this.selectedItems.length >= 3}
                   @change=${() => this.toggleItem(element.id)}
                 />
                 ${element.name}
@@ -54,8 +61,12 @@ export class ElementsListWC extends LitElement {
           ...this.selectedItems,
           { id: item, name: 'Element ' + item, isChecked: true },
         ];
-    this.selectedItems = updatedSelection;
-    console.log(updatedSelection, 'updatedSelection');
+    if (updatedSelection.length <= 3) {
+      this.selectedItems = updatedSelection;
+    } else {
+      return;
+    }
+    console.log(updatedSelection, 'updatedSelection2');
     this.dispatchEvent(
       new CustomEvent('changeSelection', { detail: updatedSelection })
     );

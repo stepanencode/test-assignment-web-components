@@ -9,11 +9,16 @@ export const elementsArray: ElementItem[] = [
   {
     id: 2,
     name: 'Element 2',
-    isChecked: true,
+    isChecked: false,
   },
   {
     id: 3,
     name: 'Element 3',
+    isChecked: false,
+  },
+  {
+    id: 4,
+    name: 'Element 4',
     isChecked: false,
   },
 ];
