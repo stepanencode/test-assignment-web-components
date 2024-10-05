@@ -76,7 +76,7 @@ export class SelectedItemsArrayWC extends LitElement {
                 <div class="selected-item-divider"></div>
                 <button
                   class="delete-button"
-                  @click=${() => this.dispatchEvent(new CustomEvent('delete'))}
+                  @click=${() => this.deleteItem(item.id)}
                   }
                 >
                   x
@@ -88,8 +88,24 @@ export class SelectedItemsArrayWC extends LitElement {
       </div>
     `;
   }
+  private deleteItem(item: number) {
+    const isDeleted = this.selectedItems.find((el) => el.id !== item);
+    const updatedSelection = isDeleted
+      ? this.selectedItems.filter((i) => i.id !== item)
+      : [
+          ...this.selectedItems,
+          { id: item, name: 'Element ' + item, isChecked: false },
+        ];
+    if (updatedSelection.length <= 3) {
+      this.selectedItems = updatedSelection;
+    } else {
+      return;
+    }
+    this.dispatchEvent(
+      new CustomEvent('changeSelection', { detail: updatedSelection })
+    );
+  }
 }
-
 declare global {
   interface HTMLElementTagNameMap {
     'selected-items-array': SelectedItemsArrayWC;

@@ -31,7 +31,7 @@ export class ElementsListWC extends LitElement {
   `;
 
   @property({ type: Array }) elements: ElementItem[] = [];
-  @property({ type: Function }) onToggleItem: (id: number) => void = () => {};
+  // @property({ type: Function }) onToggleItem: (id: number) => void = () => {}; // onToggleItem нигде не используется
   @property({ type: Array }) selectedItems: ElementItem[] = [];
 
   render() {
@@ -73,7 +73,6 @@ export class ElementsListWC extends LitElement {
     } else {
       return;
     }
-    console.log(updatedSelection, 'updatedSelection2');
     this.dispatchEvent(
       new CustomEvent('changeSelection', { detail: updatedSelection })
     );

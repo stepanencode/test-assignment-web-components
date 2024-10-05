@@ -11,7 +11,7 @@ class ModalComponent extends LitElement {
   @property({ type: Array }) elements: ElementItem[] = [];
   @property({ type: Array }) selectedItems: ElementItem[] = [];
   @property({ type: Function }) onSave!: (items: ElementItem[]) => void;
-  @property({ type: Function }) onDelete!: (item: ElementItem) => void;
+  //   @property({ type: Function }) onDelete!: (item: ElementItem) => void;
   @property({ type: Function }) onCancel!: () => void;
 
   static styles = css`
@@ -73,13 +73,12 @@ class ModalComponent extends LitElement {
         <h2>Select Items</h2>
         <elements-list
           .elements=${this.elements}
-          @toggle-item=${this.toggleItem}
           .selectedItems=${this.selectedItems}
           @changeSelection=${this.changeSelection}
         ></elements-list>
         <selected-items-array
           .selectedItems=${this.selectedItems}
-          @on-delete=${this.onDelete}
+          @changeSelection=${this.changeSelection}
         ></selected-items-array>
         <div class="buttons">
           <button @click=${this.handleSave}>Save</button>
@@ -87,17 +86,6 @@ class ModalComponent extends LitElement {
         </div>
       </div>
     `;
-  }
-
-  toggleItem(event: CustomEvent) {
-    const itemId = event.detail;
-    this.dispatchEvent(
-      new CustomEvent('toggle-item', {
-        detail: itemId,
-        bubbles: true,
-        composed: true,
-      })
-    );
   }
 }
 
