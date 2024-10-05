@@ -107,6 +107,12 @@ class ModalComponent extends LitElement {
     this.selectedItems = event.detail;
   }
 
+  //   private handleSave() {
+  //     this.dispatchEvent(
+  //       new CustomEvent('handleSave', { detail: this.selectedItems })
+  //     );
+  //   }
+
   private handleSave() {
     this.onSave(this.selectedItems);
   }

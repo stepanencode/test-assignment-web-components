@@ -98,17 +98,8 @@ export class SelectedItemsArrayWC extends LitElement {
       </div>
     `;
   }
-  private deleteItem(item: number) {
-    const isDeleted = this.selectedItems.filter((el) => el.id !== item);
-    const updatedSelection = isDeleted
-      ? this.selectedItems.filter((i) => i.id !== item)
-      : [
-          ...this.selectedItems,
-          { id: item, name: 'Element ' + item, isChecked: false },
-        ];
-    if (updatedSelection.length === 0) {
-      this.selectedItems = [];
-    }
+  private deleteItem(itemId: number) {
+    const updatedSelection = this.selectedItems.filter((i) => i.id !== itemId);
     this.dispatchEvent(
       new CustomEvent('changeSelection', { detail: updatedSelection })
     );

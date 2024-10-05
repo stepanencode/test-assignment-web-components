@@ -67,11 +67,10 @@ export class ElementsListWC extends LitElement {
           ...this.selectedItems,
           { id: item, name: 'Element ' + item, isChecked: true },
         ];
-    if (updatedSelection.length <= 3) {
-      this.selectedItems = updatedSelection;
-    } else {
+    if (updatedSelection.length > 3) {
       return;
     }
+    this.selectedItems = updatedSelection;
     this.dispatchEvent(
       new CustomEvent('changeSelection', { detail: updatedSelection })
     );
