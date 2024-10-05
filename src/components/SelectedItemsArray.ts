@@ -27,6 +27,12 @@ export class SelectedItemsArrayWC extends LitElement {
       margin: 10px 0;
       color: white;
     }
+    .empty-selected-items {
+      margin: 0 0 15px 0;
+      color: white;
+      display: flex;
+      align-items: center;
+    }
 
     .selected-item {
       width: 130px;
@@ -68,38 +74,40 @@ export class SelectedItemsArrayWC extends LitElement {
     return html`
       <div class="selected-items-container">
         <h3 class="selected-items-header">Current selected items:</h3>
-        <ul class="selected-items-list">
-          ${this.selectedItems.map(
-            (item) => html`
-              <li class="selected-item" key=${item.id}>
-                <span>${item.name}</span>
-                <div class="selected-item-divider"></div>
-                <button
-                  class="delete-button"
-                  @click=${() => this.deleteItem(item.id)}
-                  }
-                >
-                  x
-                </button>
-              </li>
-            `
-          )}
-        </ul>
+        ${this.selectedItems.length >= 1
+          ? html`<ul class="selected-items-list">
+              ${this.selectedItems.map(
+                (item) => html`
+                  <li class="selected-item" key=${item.id}>
+                    <span>${item.name}</span>
+                    <div class="selected-item-divider"></div>
+                    <button
+                      class="delete-button"
+                      @click=${() => this.deleteItem(item.id)}
+                      }
+                    >
+                      x
+                    </button>
+                  </li>
+                `
+              )}
+            </ul>`
+          : html`<p class="empty-selected-items">
+              You don't have any selected items ...
+            </p>`}
       </div>
     `;
   }
   private deleteItem(item: number) {
-    const isDeleted = this.selectedItems.find((el) => el.id !== item);
+    const isDeleted = this.selectedItems.filter((el) => el.id !== item);
     const updatedSelection = isDeleted
       ? this.selectedItems.filter((i) => i.id !== item)
       : [
           ...this.selectedItems,
           { id: item, name: 'Element ' + item, isChecked: false },
         ];
-    if (updatedSelection.length <= 3) {
-      this.selectedItems = updatedSelection;
-    } else {
-      return;
+    if (updatedSelection.length === 0) {
+      this.selectedItems = [];
     }
     this.dispatchEvent(
       new CustomEvent('changeSelection', { detail: updatedSelection })

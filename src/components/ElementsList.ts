@@ -26,12 +26,11 @@ export class ElementsListWC extends LitElement {
     }
 
     .item {
-      margin: 7px 0;
+      margin: 10px 0;
     }
   `;
 
   @property({ type: Array }) elements: ElementItem[] = [];
-  // @property({ type: Function }) onToggleItem: (id: number) => void = () => {}; // onToggleItem нигде не используется
   @property({ type: Array }) selectedItems: ElementItem[] = [];
 
   render() {
