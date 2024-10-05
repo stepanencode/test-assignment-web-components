@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { html, css, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import ElementItem from '../types/element.type';
@@ -30,40 +30,32 @@ class SearchableListWC extends LitElement {
 
   @property({ type: Array }) elements: ElementItem[] = [];
 
-  // Статус строки поиска
   private searchTerm: string = '';
 
-  // Функция для обновления строки поиска
   private handleSearchChange(event: Event) {
     const input = event.target as HTMLInputElement;
     this.searchTerm = input.value;
-    this.requestUpdate(); // Запрашиваем обновление для рендеринга
   }
 
-  // Фильтрация элементов на основе строки поиска
-  private get filteredItems() {
-    return this.elements.filter((item) =>
+  private searchItems() {
+    const newSearchedElements = this.elements.filter((item) =>
       item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    console.log('searchItems', this.searchTerm);
+    console.log('newSearchedElements', newSearchedElements);
+    this.dispatchEvent(
+      new CustomEvent('search', { detail: newSearchedElements })
     );
   }
 
-  // Определяем шаблон
-  protected render() {
+  render() {
     return html`
       <input
         type="text"
         placeholder="Search..."
         @input=${this.handleSearchChange}
+        @change=${() => this.searchItems()}
       />
-      <div class="selected-items-container">
-        ${this.filteredItems.length > 0
-          ? this.filteredItems.map(
-              (item) => html`
-                <div key=${item.id} class="selected-item">${item.name}</div>
-              `
-            )
-          : html`<p>No items found</p>`}
-      </div>
     `;
   }
 }

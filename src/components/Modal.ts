@@ -5,6 +5,7 @@ import React from 'react';
 import ElementItem from '../types/element.type';
 import './SelectedItemsArray';
 import './ElementsList';
+import './SearchableList';
 
 @customElement('modal-component')
 class ModalComponent extends LitElement {
@@ -107,6 +108,10 @@ class ModalComponent extends LitElement {
     this.selectedItems = event.detail;
   }
 
+  private searchResult(event: CustomEvent) {
+    this.elements = event.detail;
+  }
+
   //   private handleSave() {
   //     this.dispatchEvent(
   //       new CustomEvent('handleSave', { detail: this.selectedItems })
@@ -130,6 +135,7 @@ class ModalComponent extends LitElement {
           <h3>Select Items</h3>
           <button class="close-button" @click=${this.onCancel}>x</button>
         </span>
+        <searchable-list @search=${this.searchResult}></searchable-list>
         <elements-list
           .elements=${this.elements}
           .selectedItems=${this.selectedItems}
