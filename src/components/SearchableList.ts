@@ -7,24 +7,10 @@ import { createComponent } from '@lit/react';
 @customElement('searchable-list')
 class SearchableListWC extends LitElement {
   static styles = css`
-    .selected-items-container {
-      background-color: #333;
-      padding: 10px;
-      border-radius: 5px;
-      color: white;
-    }
-
-    .selected-item {
-      padding: 5px;
-      margin-bottom: 5px;
-      background-color: #000;
-      border-radius: 5px;
-    }
-
     input {
       padding: 8px;
       margin-bottom: 10px;
-      width: 100%;
+      width: 200px;
     }
   `;
 
