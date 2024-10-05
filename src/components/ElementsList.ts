@@ -7,22 +7,26 @@ import React from 'react';
 @customElement('elements-list')
 export class ElementsListWC extends LitElement {
   static styles = css`
-    ul {
-      overflow-y: auto;
-      height: 200px;
-      list-style-type: none;
-      padding: 10px 20px;
-      background-color: black;
-    }
-    li {
-      margin: 7px 0;
-    }
     label {
       cursor: pointer;
     }
+
     input[type='checkbox']:disabled {
       cursor: not-allowed;
       opacity: 0.5;
+    }
+
+    .items-list {
+      overflow-y: auto;
+      height: 200px;
+      list-style-type: none;
+      padding: 5px 20px;
+      background-color: black;
+      margin: 0;
+    }
+
+    .item {
+      margin: 7px 0;
     }
   `;
 
@@ -32,10 +36,10 @@ export class ElementsListWC extends LitElement {
 
   render() {
     return html`
-      <ul>
+      <ul class="items-list">
         ${this.elements.map(
           (element) => html`
-            <li>
+            <li class="item">
               <label>
                 <input
                   type="checkbox"
@@ -82,7 +86,6 @@ declare global {
   }
 }
 
-// Создаем React обертку для Lit компонента
 export const ElementsList = createComponent({
   react: React,
   tagName: 'elements-list',

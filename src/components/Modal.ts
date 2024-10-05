@@ -1,16 +1,17 @@
 import { html, css, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { createComponent } from '@lit/react';
-import { ElementsList } from './ElementsList';
 import React from 'react';
 import ElementItem from '../types/element.type';
+import './SelectedItemsArray';
+import './ElementsList';
 
 @customElement('modal-component')
 class ModalComponent extends LitElement {
-  @property({ type: Array }) elements: ElementItem[] = ElementsList;
+  @property({ type: Array }) elements: ElementItem[] = [];
   @property({ type: Array }) selectedItems: ElementItem[] = [];
   @property({ type: Function }) onSave!: (items: ElementItem[]) => void;
-  @property({ type: Function }) onDelete!: (items: ElementItem[]) => void;
+  @property({ type: Function }) onDelete!: (item: ElementItem) => void;
   @property({ type: Function }) onCancel!: () => void;
 
   static styles = css`
@@ -31,6 +32,11 @@ class ModalComponent extends LitElement {
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       z-index: 1000;
     }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
     .buttons {
       display: flex;
       justify-content: space-between;
@@ -73,10 +79,8 @@ class ModalComponent extends LitElement {
         ></elements-list>
         <selected-items-array
           .selectedItems=${this.selectedItems}
-          @handle-delete=${this.handleDelete}
+          @on-delete=${this.onDelete}
         ></selected-items-array>
-        //
-        <div>${this.selectedItems.map((el) => el.name)}</div>
         <div class="buttons">
           <button @click=${this.handleSave}>Save</button>
           <button @click=${this.handleCancel}>Cancel</button>

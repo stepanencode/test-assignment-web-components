@@ -77,8 +77,8 @@ export const elementsArray: ElementItem[] = [
     isChecked: false,
   },
   {
-    id: 16,
-    name: 'Element 16',
+    id: 300,
+    name: 'Element 300',
     isChecked: false,
   },
 ];
