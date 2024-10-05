@@ -16,12 +16,18 @@ export class SelectedItemsArrayWC extends LitElement {
   `;
 
   @property({ type: Array }) selectedItems: ElementItem[] = [];
-  @property({ type: Function }) onDelete!: () => void;
+  @property({ type: Function }) onDelete!: (items: ElementItem[]) => void;
 
-  private handleDelete() {
-    this.onDelete(
-      this.setSelectedItems((prev) => prev.filter((i) => i !== item))
-    );
+  //   private handleDelete() {
+  //     this.onDelete(
+  //       this.setSelectedItems((prev) => prev.filter((i) => i !== item))
+  //     );
+  //   }
+
+  private handleDelete(item: ElementItem) {
+    this.selectedItems = this.selectedItems.filter((i) => i !== item);
+    this.requestUpdate(); // Обновляет компонент вручную
+    this.onDelete(this.selectedItems); // Вызываем onDelete после обновления
   }
 
   render() {

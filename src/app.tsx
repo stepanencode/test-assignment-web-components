@@ -13,6 +13,10 @@ const App: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const handleDelete = (item: ElementItem) => {
+    setSelectedItems((prev) => prev.filter((i) => i !== item));
+  };
+
   const handleCancel = () => {
     setSelectedItems(selectedItems);
     console.log('selectedItems', selectedItems);
@@ -39,6 +43,7 @@ const App: React.FC = () => {
       {isModalOpen && (
         <Modal
           selectedItems={selectedItems}
+          onDelete={(item) => handleDelete(item)}
           onSave={(items) => handleSave(items)}
           onCancel={() => handleCancel()}
           elements={elements}

@@ -10,6 +10,7 @@ class ModalComponent extends LitElement {
   @property({ type: Array }) elements: ElementItem[] = ElementsList;
   @property({ type: Array }) selectedItems: ElementItem[] = [];
   @property({ type: Function }) onSave!: (items: ElementItem[]) => void;
+  @property({ type: Function }) onDelete!: (items: ElementItem[]) => void;
   @property({ type: Function }) onCancel!: () => void;
 
   static styles = css`
@@ -72,7 +73,9 @@ class ModalComponent extends LitElement {
         ></elements-list>
         <selected-items-array
           .selectedItems=${this.selectedItems}
+          @handle-delete=${this.handleDelete}
         ></selected-items-array>
+        //
         <div>${this.selectedItems.map((el) => el.name)}</div>
         <div class="buttons">
           <button @click=${this.handleSave}>Save</button>
