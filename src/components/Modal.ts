@@ -6,6 +6,7 @@ import ElementItem from '../types/element.type';
 import './SelectedItemsArray';
 import './ElementsList';
 import './SearchableList';
+import './Filter';
 
 @customElement('modal-component')
 class ModalComponent extends LitElement {
@@ -100,6 +101,10 @@ class ModalComponent extends LitElement {
   `;
 
   @property({ type: Array }) elements: ElementItem[] = [];
+  @property({ type: Array }) filteredItems: ElementItem[] = [];
+  @property({ type: Function }) setFilteredItems!: (
+    filteredItems: ElementItem[]
+  ) => void;
   @property({ type: Array }) selectedItems: ElementItem[] = [];
   @property({ type: Function }) onSave!: (items: ElementItem[]) => void;
   @property({ type: Function }) onCancel!: () => void;
@@ -109,22 +114,40 @@ class ModalComponent extends LitElement {
   }
 
   private searchResult(event: CustomEvent) {
-    this.elements = event.detail;
+    this.searchValue = event.detail;
+    this.filterAndSearch();
   }
 
-  //   private handleSave() {
-  //     this.dispatchEvent(
-  //       new CustomEvent('handleSave', { detail: this.selectedItems })
-  //     );
-  //   }
+  private filterResult(event: CustomEvent) {
+    this.filterValue = event.detail;
+    this.filterAndSearch();
+  }
+
+  private filterValue = '';
+  private searchValue = '';
+
+  private filterAndSearch() {
+    const newFilteredElements = this.elements.filter((item) => {
+      const digit = item.name.match(/Element\s+(\d+)/i)?.[1] || '';
+      return +digit >= +this.filterValue;
+    });
+    const newSearchedElements = newFilteredElements.filter((item) => {
+      return item.name.toLowerCase().includes(this.searchValue.toLowerCase());
+    });
+    this.setFilteredItems(newSearchedElements);
+  }
 
   private handleSave() {
     this.onSave(this.selectedItems);
+    this.filterValue = '';
+    this.searchValue = '';
   }
 
   private handleCancel() {
     this.selectedItems = [];
     this.onCancel();
+    this.filterValue = '';
+    this.searchValue = '';
   }
 
   render() {
@@ -135,11 +158,19 @@ class ModalComponent extends LitElement {
           <h3>Select Items</h3>
           <button class="close-button" @click=${this.onCancel}>x</button>
         </span>
-        <searchable-list @search=${this.searchResult}></searchable-list>
+        <searchable-list
+          @search=${this.searchResult}
+          // .elements=${this.elements}
+        ></searchable-list>
+        <filter-elements
+          // .elements=${this.elements}
+          @selection-changed=${this.filterResult}
+        ></filter-elements>
         <elements-list
           .elements=${this.elements}
           .selectedItems=${this.selectedItems}
           @changeSelection=${this.changeSelection}
+          .filteredItems=${this.filteredItems}
         ></elements-list>
         <selected-items-array
           .selectedItems=${this.selectedItems}

@@ -31,12 +31,16 @@ export class ElementsListWC extends LitElement {
   `;
 
   @property({ type: Array }) elements: ElementItem[] = [];
+  @property({ type: Array }) filteredItems: ElementItem[] = [];
   @property({ type: Array }) selectedItems: ElementItem[] = [];
 
   render() {
+    console.log('elements', this.elements);
+    console.log('filtred items', this.filteredItems);
+
     return html`
       <ul class="items-list">
-        ${this.elements.map(
+        ${this.filteredItems.map(
           (element) => html`
             <li class="item">
               <label>

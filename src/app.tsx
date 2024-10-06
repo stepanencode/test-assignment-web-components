@@ -5,11 +5,14 @@ import ElementItem from './types/element.type';
 
 const App: React.FC = () => {
   const [selectedItems, setSelectedItems] = useState<ElementItem[]>([]);
+  const [filteredItems, setFilteredItems] = useState<ElementItem[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [elements, setElements] = useState<ElementItem[]>([]);
 
   useEffect(() => {
-    setElements(generateElements());
+    const initialState = generateElements();
+    setElements(initialState);
+    setFilteredItems(initialState);
   }, []);
 
   const handleSave = (newSelectedItems: ElementItem[]) => {
@@ -44,6 +47,8 @@ const App: React.FC = () => {
           onSave={(items) => handleSave(items)}
           onCancel={() => handleCancel()}
           elements={elements}
+          filteredItems={filteredItems}
+          setFilteredItems={setFilteredItems}
         />
       )}
     </div>

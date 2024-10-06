@@ -1,7 +1,7 @@
 import React from 'react';
 import { html, css, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import ElementItem from '../types/element.type';
+// import ElementItem from '../types/element.type';
 import { createComponent } from '@lit/react';
 
 @customElement('searchable-list')
@@ -14,33 +14,31 @@ class SearchableListWC extends LitElement {
     }
   `;
 
-  @property({ type: Array }) elements: ElementItem[] = [];
+  // @property({ type: Array }) elements: ElementItem[] = [];
 
   private searchTerm: string = '';
 
   private handleSearchChange(event: Event) {
     const input = event.target as HTMLInputElement;
     this.searchTerm = input.value;
+    this.searchItems();
   }
 
   private searchItems() {
-    const newSearchedElements = this.elements.filter((item) =>
-      item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-    console.log('searchItems', this.searchTerm);
-    console.log('newSearchedElements', newSearchedElements);
-    this.dispatchEvent(
-      new CustomEvent('search', { detail: newSearchedElements })
-    );
+    // console.log(this.elements);
+    // const newSearchedElements = this.elements.filter((item) => {
+    //   return item.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+    // });
+    this.dispatchEvent(new CustomEvent('search', { detail: this.searchTerm }));
   }
 
   render() {
     return html`
       <input
+        .value=${this.searchTerm}
         type="text"
         placeholder="Search..."
         @input=${this.handleSearchChange}
-        @change=${() => this.searchItems()}
       />
     `;
   }
@@ -52,7 +50,7 @@ declare global {
   }
 }
 
-export const ElementsList = createComponent({
+export const SearchableList = createComponent({
   react: React,
   tagName: 'searchable-list',
   elementClass: SearchableListWC,
