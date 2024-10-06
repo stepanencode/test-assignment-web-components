@@ -1,7 +1,6 @@
 import React from 'react';
 import { html, css, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-// import ElementItem from '../types/element.type';
+import { customElement } from 'lit/decorators.js';
 import { createComponent } from '@lit/react';
 
 @customElement('searchable-list')
@@ -14,8 +13,6 @@ class SearchableListWC extends LitElement {
     }
   `;
 
-  // @property({ type: Array }) elements: ElementItem[] = [];
-
   private searchTerm: string = '';
 
   private handleSearchChange(event: Event) {
@@ -25,10 +22,6 @@ class SearchableListWC extends LitElement {
   }
 
   private searchItems() {
-    // console.log(this.elements);
-    // const newSearchedElements = this.elements.filter((item) => {
-    //   return item.name.toLowerCase().includes(this.searchTerm.toLowerCase());
-    // });
     this.dispatchEvent(new CustomEvent('search', { detail: this.searchTerm }));
   }
 

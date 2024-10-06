@@ -3,8 +3,6 @@ import { customElement } from 'lit/decorators.js';
 import React from 'react';
 import { createComponent } from '@lit/react';
 
-// import { createComponent } from '@lit-labs/react';
-
 @customElement('button-group')
 class ButtonGroupComponent extends LitElement {
   static styles = css`

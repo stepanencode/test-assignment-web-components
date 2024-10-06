@@ -2,23 +2,14 @@ import { createComponent } from '@lit/react';
 import { html, css, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import React from 'react';
-// import ElementItem from '../types/element.type';
 
 @customElement('filter-elements')
 export class FilterWC extends LitElement {
-  // Array of options (each option has a value and a label)
-  //   @property({ type: Array }) elements: ElementItem[] = [];
-
-  //   @property({ type: Array }) options: { value: string; label: string }[] = [];
-
-  // Selected value
   @property({ type: String }) selectedValue: string = '';
 
-  // Handle the change event when a new option is selected
   private handleChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     this.selectedValue = selectElement.value;
-    // console.log('FFFF elem', this.elements);
     const changeEvent = new CustomEvent('selection-changed', {
       detail: this.selectedValue,
     });

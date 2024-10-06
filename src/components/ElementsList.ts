@@ -35,9 +35,6 @@ export class ElementsListWC extends LitElement {
   @property({ type: Array }) selectedItems: ElementItem[] = [];
 
   render() {
-    console.log('elements', this.elements);
-    console.log('filtred items', this.filteredItems);
-
     return html`
       <ul class="items-list">
         ${this.filteredItems.map(
