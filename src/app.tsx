@@ -48,7 +48,7 @@ const App = () => {
       {selectedItems.length > 0 ? (
         <p>You currently have {selectedItems.length} selected items</p>
       ) : (
-        <p>You currently haven't selected items</p>
+        <p>You currently don't have selected items</p>
       )}
       <ul>
         {selectedItems.map((item) => (
