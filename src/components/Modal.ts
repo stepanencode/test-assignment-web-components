@@ -141,6 +141,7 @@ class ModalComponent extends LitElement {
     this.onSave(this.selectedItems);
     this.filterValue = '';
     this.searchValue = '';
+    this.setFilteredItems(this.elements);
   }
 
   private handleCancel() {
@@ -148,6 +149,7 @@ class ModalComponent extends LitElement {
     this.onCancel();
     this.filterValue = '';
     this.searchValue = '';
+    this.setFilteredItems(this.elements);
   }
 
   render() {
@@ -158,12 +160,8 @@ class ModalComponent extends LitElement {
           <h3>Select Items</h3>
           <button class="close-button" @click=${this.onCancel}>x</button>
         </span>
-        <searchable-list
-          @search=${this.searchResult}
-          // .elements=${this.elements}
-        ></searchable-list>
+        <searchable-list @search=${this.searchResult}></searchable-list>
         <filter-elements
-          // .elements=${this.elements}
           @selection-changed=${this.filterResult}
         ></filter-elements>
         <elements-list
