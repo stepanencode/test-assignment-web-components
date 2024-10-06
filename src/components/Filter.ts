@@ -29,19 +29,16 @@ export class FilterWC extends LitElement {
       transition: all 0.3s ease;
     }
 
-    /* Стили для опций */
     .custom-select option {
       padding: 10px;
       font-size: 16px;
     }
 
-    /* Стили при наведении на селект */
     .custom-select:hover {
       background-color: #e6e6e6;
       border-color: #999;
     }
 
-    /* Стили при фокусе */
     .custom-select:focus {
       border-color: #007bff;
       box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);

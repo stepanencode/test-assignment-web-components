@@ -42,12 +42,6 @@ li {
   color: white;
   font-size: 14px;
 }
-.selected-item-divider {
-  margin: 0 10px;
-  height: 100%;
-  width: 1px;
-  background-color: #666;
-}
 
 .change-button {
   background: #0da846;

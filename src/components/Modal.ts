@@ -19,7 +19,6 @@ class ModalComponent extends LitElement {
       color: white;
       border-radius: 8px;
       width: 500px;
-      // max-height: 400px;
       margin: 2rem auto;
       position: fixed;
       top: 50%;
@@ -108,13 +107,13 @@ class ModalComponent extends LitElement {
 
   @property({ type: Array }) elements: ElementItem[] = [];
   @property({ type: Array }) filteredItems: ElementItem[] = [];
+  @property({ type: Array }) selected: ElementItem[] = [];
+  @property({ type: Array }) selectedItems: ElementItem[] = [...this.selected];
   @property({ type: Function }) setFilteredItems!: (
     filteredItems: ElementItem[]
   ) => void;
-  @property({ type: Array }) selected: ElementItem[] = [];
   @property({ type: Function }) onSave!: (items: ElementItem[]) => void;
   @property({ type: Function }) onCancel!: () => void;
-  @property({ type: Array }) selectedItems: ElementItem[] = [...this.selected];
 
   private filterValue = '';
   private searchValue = '';
