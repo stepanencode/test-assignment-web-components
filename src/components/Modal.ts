@@ -29,7 +29,7 @@ class ModalComponent extends LitElement {
       z-index: 1000;
     }
 
-    .modal h3 {
+    .header {
       margin: 0;
     }
 
@@ -109,6 +109,9 @@ class ModalComponent extends LitElement {
   @property({ type: Function }) onSave!: (items: ElementItem[]) => void;
   @property({ type: Function }) onCancel!: () => void;
 
+  private filterValue = '';
+  private searchValue = '';
+
   private changeSelection(event: CustomEvent) {
     this.selectedItems = event.detail;
   }
@@ -122,9 +125,6 @@ class ModalComponent extends LitElement {
     this.filterValue = event.detail;
     this.filterAndSearch();
   }
-
-  private filterValue = '';
-  private searchValue = '';
 
   private filterAndSearch() {
     const newFilteredElements = this.elements.filter((item) => {
@@ -157,7 +157,7 @@ class ModalComponent extends LitElement {
       <div class="overlay" @click=${this.onCancel}></div>
       <div class="modal">
         <span class="header-container">
-          <h3>Select Items</h3>
+          <span class="header">Select Items</span>
           <button class="close-button" @click=${this.onCancel}>x</button>
         </span>
         <searchable-list @search=${this.searchResult}></searchable-list>

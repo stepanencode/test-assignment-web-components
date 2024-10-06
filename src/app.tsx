@@ -3,7 +3,9 @@ import { Modal } from './components/Modal';
 import { generateElements } from './lib/data';
 import ElementItem from './types/element.type';
 
-const App: React.FC = () => {
+import './index.css';
+
+const App = () => {
   const [selectedItems, setSelectedItems] = useState<ElementItem[]>([]);
   const [filteredItems, setFilteredItems] = useState<ElementItem[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,21 +28,39 @@ const App: React.FC = () => {
   };
 
   const handleDelete = (itemId: number) => {
-    const newItems = selectedItems.filter((i) => i.id !== itemId);
+    const newItems = selectedItems.filter(
+      (selectedItem) => selectedItem.id !== itemId
+    );
     setSelectedItems(newItems);
   };
 
+  const handleDeleteClick = (itemId: number) => () => {
+    handleDelete(itemId);
+  };
+
+  const handleSetIsModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
   return (
-    <div>
-      <div>
+    <>
+      <ul>
         {selectedItems.map((item) => (
-          <span key={item.id} className="tag">
+          <li key={item.id} className="selected-item">
             Element {item.id}
-            <button onClick={() => handleDelete(item.id)}>x</button>
-          </span>
+            <button
+              role="button"
+              onClick={handleDeleteClick(item.id)}
+              className="button"
+            >
+              x
+            </button>
+          </li>
         ))}
-      </div>
-      <button onClick={() => setIsModalOpen(true)}>Change my choice</button>
+      </ul>
+      <button className="delete-button" onClick={handleSetIsModalOpen}>
+        Change my choice
+      </button>
       {isModalOpen && (
         <Modal
           selectedItems={selectedItems}
@@ -51,7 +71,7 @@ const App: React.FC = () => {
           setFilteredItems={setFilteredItems}
         />
       )}
-    </div>
+    </>
   );
 };
 
