@@ -19,7 +19,7 @@ class ModalComponent extends LitElement {
       color: white;
       border-radius: 8px;
       width: 500px;
-      max-height: 400px;
+      // max-height: 400px;
       margin: 2rem auto;
       position: fixed;
       top: 50%;
@@ -98,6 +98,12 @@ class ModalComponent extends LitElement {
       background: rgba(0, 0, 0, 0.5);
       z-index: 999;
     }
+
+    .filter-container {
+      display: flex;
+      flex-direction: raw;
+      justify-content: space-between;
+    }
   `;
 
   @property({ type: Array }) elements: ElementItem[] = [];
@@ -105,12 +111,19 @@ class ModalComponent extends LitElement {
   @property({ type: Function }) setFilteredItems!: (
     filteredItems: ElementItem[]
   ) => void;
-  @property({ type: Array }) selectedItems: ElementItem[] = [];
+  @property({ type: Array }) selected: ElementItem[] = [];
   @property({ type: Function }) onSave!: (items: ElementItem[]) => void;
   @property({ type: Function }) onCancel!: () => void;
+  @property({ type: Array }) selectedItems: ElementItem[] = [...this.selected];
 
   private filterValue = '';
   private searchValue = '';
+
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    if (changedProperties.has('selected')) {
+      this.selectedItems = this.selected;
+    }
+  }
 
   private changeSelection(event: CustomEvent) {
     this.selectedItems = event.detail;
@@ -154,16 +167,18 @@ class ModalComponent extends LitElement {
 
   render() {
     return html`
-      <div class="overlay" @click=${this.onCancel}></div>
+      <div class="overlay" @click=${this.handleCancel}></div>
       <div class="modal">
         <span class="header-container">
           <span class="header">Select Items</span>
-          <button class="close-button" @click=${this.onCancel}>x</button>
+          <button class="close-button" @click=${this.handleCancel}>x</button>
         </span>
-        <searchable-list @search=${this.searchResult}></searchable-list>
-        <filter-elements
-          @selection-changed=${this.filterResult}
-        ></filter-elements>
+        <div class="filter-container">
+          <searchable-list @search=${this.searchResult}></searchable-list>
+          <filter-elements
+            @selection-changed=${this.filterResult}
+          ></filter-elements>
+        </div>
         <elements-list
           .elements=${this.elements}
           .selectedItems=${this.selectedItems}
@@ -189,8 +204,4 @@ export const Modal = createComponent({
   react: React,
   tagName: 'modal-component',
   elementClass: ModalComponent,
-  events: {
-    handleSave: 'onSave',
-    handleCancel: 'onCancel',
-  },
 });

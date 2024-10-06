@@ -2,11 +2,6 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  /* font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
 }
 
 body {
@@ -16,22 +11,22 @@ body {
   min-height: 100vh;
 }
 
-.selected-items-list {
+.container {
+  margin: 10px;
+}
+
+.header {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 10px 0;
+  color: black;
+}
+
+ul {
   display: flex;
   flex-direction: row;
   margin: 0;
   padding: 0;
-}
-
-.selected-items-header {
-  margin: 10px 0;
-  color: white;
-}
-.empty-selected-items {
-  margin: 0 0 15px 0;
-  color: white;
-  display: flex;
-  align-items: center;
 }
 
 li {
@@ -40,7 +35,7 @@ li {
   align-items: center;
   justify-content: space-around;
   background-color: #000;
-  border-radius: 5px;
+  border-radius: 3px;
   padding: 5px 10px;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -54,8 +49,31 @@ li {
   background-color: #666;
 }
 
-.button {
-  background: green;
+.change-button {
+  background: #0da846;
+  padding: 10px;
+  width: 200px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.change-button:hover {
+  background: #0a913c;
+}
+
+.selected-item-divider {
+  margin: 0 10px;
+  height: 100%;
+  width: 1px;
+  background-color: #666;
+}
+
+.delete-button {
+  background: none;
   border: none;
   color: white;
   font-size: 16px;

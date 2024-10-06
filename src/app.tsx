@@ -43,27 +43,34 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className="container">
+      <span className="header">Select Items</span>
+      {selectedItems.length > 0 ? (
+        <p>You currently have {selectedItems.length} selected items</p>
+      ) : (
+        <p>You currently haven't selected items</p>
+      )}
       <ul>
         {selectedItems.map((item) => (
           <li key={item.id} className="selected-item">
-            Element {item.id}
+            <span>Element {item.id}</span>
+            <div className="selected-item-divider"></div>
             <button
               role="button"
               onClick={handleDeleteClick(item.id)}
-              className="button"
+              className="delete-button"
             >
               x
             </button>
           </li>
         ))}
       </ul>
-      <button className="delete-button" onClick={handleSetIsModalOpen}>
+      <button className="change-button" onClick={handleSetIsModalOpen}>
         Change my choice
       </button>
       {isModalOpen && (
         <Modal
-          selectedItems={selectedItems}
+          selected={selectedItems}
           onSave={(items) => handleSave(items)}
           onCancel={() => handleCancel()}
           elements={elements}
@@ -71,7 +78,7 @@ const App = () => {
           setFilteredItems={setFilteredItems}
         />
       )}
-    </>
+    </div>
   );
 };
 
